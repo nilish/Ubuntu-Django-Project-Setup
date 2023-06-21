@@ -46,6 +46,40 @@ python manage.py migrate
  mkdir testproject_venv
  virtualenv testprojectenv
  pip install django gunicorn psycopg2
+
+
+________________ New App ____________
+
+- main folder housing django projects and apps
+- Django project folder housing the settings.py
+- put the new app under the INSTALLED_APPS [] list
+- put the new app urls under the project's app urls.py
+          from django.contrib import admin
+          from django.urls import path, include
+
+     urlpatterns = [
+        path('admin/', admin.site.urls),
+        path("polls/", include("polls.urls"))
+     ]
+ - On the manage.py directory , run the following commands to recognize the newly added app
+      - python3 manage.py makemigrations
+      - python manager.py migrate
+
+- Then restart the Gunicorn
+     - sudo systemctl daemon-reload
+     - sudo systemctl restart gunicorn
+     - sudo systemctl status gunicorn
+
+ - Error example : Initially Gunicorn start failed as new app was added under middleware instead on INSTALLED_APPS 
+                 e.g  raise ImportError("%s doesn't look like a module path" % dotted_path) from err
+                      ImportError: polls doesn't look like a module path
+                 Once the new app Polls added properly , the error resolved .
+
+ - Success - the admin at  http://thesite/admin link  and the new app at http://thesite/polls link 
+
+
+
+        
  
 
 
