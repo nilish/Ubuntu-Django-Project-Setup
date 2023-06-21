@@ -1,0 +1,3 @@
+How local gunicorn host multiple apps ?
+How local nginix host multple apps? 
+How one Django projects host multple apps under local gunicorn and nginx in prod?
